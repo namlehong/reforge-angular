@@ -1,0 +1,4 @@
+/src/assets/fonts/*
+/src/assets/fonts/images/*
+/src/app/components/kit/vendors/antd/themes
+/node_modules

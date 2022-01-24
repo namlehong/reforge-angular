@@ -1,0 +1,10 @@
+.DS_Store/
+.idea/
+docker-compose.yml
+Dockerfile
+.dockerignore
+.gitignore
+warn.log
+node_modules/
+src/
+e2e/

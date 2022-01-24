@@ -1,0 +1,62 @@
+<div class="card">
+  <div class="card-header card-header-flex flex-column">
+    <div class="d-flex flex-wrap pt-3">
+      <div class="mr-auto">
+        <div class="text-dark font-size-18 font-weight-bold">Services</div>
+      </div>
+      <div>
+        <button
+          *ngIf="!isPublic"
+          nz-button
+          nzType="primary"
+          (click)="discordExport.emit(services)"
+        >Export to Discord</button>
+      </div>
+    </div>
+    <nz-tabset class="kit-tabs kit-tabs-bold" (nzSelectedIndexChange)="changeKey($event)">
+<!--      <nz-tab nzTitle="Active"></nz-tab>-->
+<!--      <nz-tab nzTitle="Inactive"></nz-tab>-->
+    </nz-tabset>
+  </div>
+  <div class="card-body">
+    <nz-list>
+      <ng-container *ngFor="let item of services">
+      <nz-list-item *ngIf="item.is_active != activeKey" nzNoFlex>
+        <nz-list-item-meta>
+          <nz-list-item-meta-title>
+            {{hallMap[item.service] ? hallMap[item.service].title : ''}} - seed lvl:{{item.item_level}}
+          </nz-list-item-meta-title>
+        </nz-list-item-meta>
+        {{item.price}} (~{{item.chaos_equivalent}}c)
+<!--        <ng-container *ngIf="!isPublic">-->
+<!--          <a class="text-info ml-1" (click)="edit.emit(item)">(<i nz-icon nzType="edit"></i> edit)</a>-->
+<!--        </ng-container>-->
+        <ul nz-list-item-actions>
+<!--          <nz-list-item-action *ngIf="!isPublic">-->
+<!--            <nz-switch-->
+<!--              [ngModel]="item.is_active"-->
+<!--              (ngModelChange)="toggle.emit([item, $event])"-->
+<!--            ></nz-switch>-->
+<!--          </nz-list-item-action>-->
+          <nz-list-item-action *ngIf="!isPublic">
+            <a class="text-info ml-1" (click)="edit.emit(item)"><i nz-icon nzType="edit"></i> edit</a>
+          </nz-list-item-action>
+          <nz-list-item-action *ngIf="!isPublic">
+            <a class="text-success ml-1" (click)="toggle.emit([item, false])"><i nz-icon nzType="check"></i> sold</a>
+          </nz-list-item-action>
+          <nz-list-item-action *ngIf="isPublic">
+            <a class="text-info" (click)="pm.emit(item)"><i nz-icon nzType="message"></i> PM</a>
+          </nz-list-item-action>
+          <nz-list-item-action *ngIf="isPublic">
+            <a class="text-info" (click)="vouch.emit(item)"><i nz-icon nzType="like"></i> Vouch</a>
+          </nz-list-item-action>
+          <nz-list-item-action *ngIf="isPublic">
+            <a class="text-danger" (click)="doDisapprove(item)"
+            ><i nz-icon nzType="dislike"></i> Disapprove</a>
+          </nz-list-item-action>
+        </ul>
+      </nz-list-item>
+      </ng-container>
+    </nz-list>
+  </div>
+</div>

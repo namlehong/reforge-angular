@@ -1,0 +1,13 @@
+<div class="d-flex flex-wrap flex-column align-items-center" *ngIf="profile">
+  <div class="mb-3">
+    <div class="icon" [ngClass]="profile.poe.class"></div>
+  </div>
+  <div class="text-center">
+    <div class="text-dark font-weight-bold font-size-18">@{{profile.poe.name}}</div>
+    <div class="text-uppercase font-size-12 mb-3">{{profile.poe.class}} Lv.{{profile.poe.level}}</div>
+    <div class="text-uppercase font-size-12 mb-0">Joined: {{profile.joined}}</div>
+    <div class="text-uppercase font-size-12 mb-0">Challenge: {{profile.challenge}}</div>
+    <div class="text-uppercase font-size-12 mb-3">Achievements: {{profile.achievements}}</div>
+    <button *ngIf="!isPublic" nz-button [nzType]="'primary'" routerLink="/trading/profile/{{profile.username}}">Public Profile<i nz-icon nzType="link"></i></button>
+  </div>
+</div>

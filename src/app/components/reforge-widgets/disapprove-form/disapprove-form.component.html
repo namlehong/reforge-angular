@@ -1,0 +1,38 @@
+<form nz-form [formGroup]="form">
+  <nz-descriptions [nzColumn]="2" nzTitle="Service Info">
+    <nz-descriptions-item nzTitle="Service" [nzSpan]="1">{{item.serviceInfo.title}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Price" [nzSpan]="1">{{item.price}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Seller" [nzSpan]="2">
+      <a routerLink="/trading/profile/{{item.profile.username}}">{{item.profile.username}}</a>
+    </nz-descriptions-item>
+  </nz-descriptions>
+  <nz-divider></nz-divider>
+  <nz-form-item>
+    <nz-form-label nzFor="price">Note</nz-form-label>
+    <nz-form-control>
+      <textarea nz-input formControlName="note" placeholder="please enter reason why you disapprove this service and seller" [nzAutosize]="{ minRows: 4 }"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-divider></nz-divider>
+  <div>
+    <h3>Disapprove guideline</h3>
+    <p>Disapprove work as early warning layer on anti-scam
+      efforts and self-improve service quality.</p>
+    <p>A disapproval must be reflect one of <strong>real</strong>
+      service transaction between you and service provider, where
+      you feel unsatisfied about service quality (not a result).</p>
+    <p>That mean you can not disapprove without transaction,
+      and false disapproval will be deleted. Abuse disapprove
+      to target harassment aren't allowed, there will be penalties
+      for giving false disapproval and may result as permanent ban.</p>
+  </div>
+
+  <nz-divider></nz-divider>
+
+  <div>
+    <button [disabled]="!form.valid" (click)="submit()" nz-button nzType="primary">Submit</button>
+  </div>
+
+
+</form>

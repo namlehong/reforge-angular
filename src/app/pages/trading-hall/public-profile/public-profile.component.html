@@ -1,0 +1,29 @@
+<div *ngIf="user$ | async">
+  <div class="row">
+    <div class="col-xl-4 col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <app-bio [profile]="user$ | async" [isPublic]="true"></app-bio>
+        </div>
+      </div>
+      <div class="card text-white bg-primary">
+        <app-approve-counter [profile]="user$ | async"></app-approve-counter>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <app-approve-history [vouches]="vouches$ | async"></app-approve-history>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-8 col-lg-12" *ngIf="(listService$ | async) && (hallMap$ | async)">
+      <app-list-services
+        [services]="listService$ | async"
+        [hallMap]="hallMap$ | async"
+        [isPublic]="true"
+        (pm)="pm($event)"
+        (vouch)="vouch($event)"
+        (disapprove)="disapprove($event)"
+      ></app-list-services>
+    </div>
+  </div>
+</div>

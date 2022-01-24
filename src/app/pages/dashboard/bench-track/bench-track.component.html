@@ -1,0 +1,44 @@
+<nz-table #dynamicTable [nzScroll]="fixHeader ? { y: '240px' } : null" [nzData]="listOfData" [nzBordered]="bordered"
+          [nzSimple]="simple" [nzLoading]="loading" [nzPaginationPosition]="position" [nzShowSizeChanger]="sizeChanger"
+          [nzFrontPagination]="pagination" [nzShowPagination]="pagination" [nzPageSize]="pageSize" [nzPageSizeOptions]="sizeOptions" [nzSize]="size" (nzCurrentPageDataChange)="currentPageDataChange($event)">
+  <thead>
+  <tr *ngIf="header">
+    <th nzWidth="62px" *ngIf="checkbox"></th>
+    <th>Mod</th>
+    <th nzWidth="100px">Cost</th>
+    <th nzWidth="260px">Item Type</th>
+<!--    <th nzWidth="260px">Location</th>-->
+    <th nzWidth="50px" nzShowExpand *ngIf="expandable"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <ng-template ngFor let-data [ngForOf]="dynamicTable.data">
+    <tr class="mod_group">
+      <td></td>
+      <td colspan="5"><strong>{{data.mod.join(', ')}}</strong></td>
+    </tr>
+    <ng-container *ngFor="let _item of data.tiers">
+    <tr>
+      <td nzShowCheckbox *ngIf="checkbox" [nzDisabled]="_item.location === 'Default'" [(nzChecked)]="_item.checked" (nzCheckedChange)="refreshStatus(_item, $event)"></td>
+      <td>
+        <div *ngFor="let _mod of _item.mod">{{_mod}}</div>
+      </td>
+      <td>
+        <div *ngFor="let _cost of _item.cost">
+          {{_cost[0]}} <span class="poe-icon {{_cost[1]}}"></span>
+        </div>
+      </td>
+      <td>
+          <span *ngFor="let _slot of _item.slots" class="poe-icon {{_slot}}"></span>
+      </td>
+<!--      <td>{{ _item.location }}</td>-->
+      <td nzShowExpand *ngIf="expandable" [(nzExpand)]="_item.expand"></td>
+    </tr>
+      <tr [nzExpand]="_item.expand && expandable">
+        <td>&nbsp;</td>
+        <td [attr.colspan]="checkbox ? 4 : 3">{{ _item.location }}</td>
+      </tr>
+    </ng-container>
+  </ng-template>
+  </tbody>
+</nz-table>

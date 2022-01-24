@@ -1,0 +1,12 @@
+<div>
+  <div nz-dropdown nzTrigger="click" class="dropdown" [nzDropdownMenu]="menu">
+    <span class="text-uppercase">{{(activeLeague$ | async)?.name}}</span>
+  </div>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item *ngFor="let item of leagues$ | async" (click)="changeLeague(item)">
+        {{item.name}}
+      </li>
+    </ul>
+  </nz-dropdown-menu>
+</div>

@@ -1,0 +1,33 @@
+<div class="topbar">
+  <div class="mr-2">
+    <button *ngIf="authorized" nz-button [nzType]="'primary'" (click)="newService()">New Service<i nz-icon nzType="plus"></i></button>
+  </div>
+  <div class="mr-auto">
+<!--    <cui-topbar-search></cui-topbar-search>-->
+<!--    <button nz-button nzType="primary" nzShape="circle"><i nz-icon nzType="search"></i></button>-->
+    <button *ngIf="authorized" nz-tooltip nzTooltipTitle="Re-list your service to make it fresh" nz-button [nzType]="'default'" [nzDanger]="autoPing" (click)="togglePing()" nzShape="round">
+       Re-list service  <i nz-icon nzType="cloud-upload"></i>
+    </button>
+    {{lastPing ? (lastPing | timeago) : ''}}
+
+  </div>
+<!--  <div class="mr-4 d-none d-md-block">-->
+<!--    <cui-topbar-issues-history></cui-topbar-issues-history>-->
+<!--  </div>-->
+<!--  <div class="mb-0 mr-auto d-xl-block d-none">-->
+<!--    <cui-topbar-project-management></cui-topbar-project-management>-->
+<!--  </div>-->
+  <div class="mr-4 d-sm-block d-none">
+    <app-league-switcher></app-league-switcher>
+  </div>
+  <div class="mr-4 d-none d-sm-block">
+    <cui-topbar-language-switcher></cui-topbar-language-switcher>
+  </div>
+<!--  <div class="mr-4 d-none d-sm-block">-->
+<!--    <cui-topbar-actions></cui-topbar-actions>-->
+<!--  </div>-->
+  <div>
+    <a *ngIf="!authorized" routerLink="login" nz-button nzType="primary">Sign In</a>
+    <cui-topbar-user-menu></cui-topbar-user-menu>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<form nz-form [nzLayout]="'vertical'" [formGroup]="testForm">
+  <div class="row">
+    <div class="col-lg-12">
+      <nz-form-item>
+        <nz-form-label>Service:</nz-form-label>
+        <nz-select formControlName="service" (nzOnSearch)="onSearch($event)" nzServerSearch nzShowSearch="1">
+          <nz-option
+            *ngFor="let item of hallServices$ | async"
+            [nzValue]="item.value"
+            [nzLabel]="item.label">
+          </nz-option>
+        </nz-select>
+      </nz-form-item>
+    </div>
+
+    <div class="col-lg-12" *ngIf="isHarvest">
+      <nz-form-item>
+        <nz-form-label nzFor="item_level">Seed Level:</nz-form-label>
+        <nz-form-control>
+          <input nz-input type="number" formControlName="item_level" placeholder="76" id="item_level">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div class="col-lg-12">
+      <nz-form-item>
+        <nz-form-label nzFor="price">Price:</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="price" placeholder="offer" id="price">
+        </nz-form-control>
+        <p *ngIf="servicePrice">
+          <i>Market price, <strong>average: {{servicePrice.average | number:'1.0-2'}}</strong> - <strong>median: {{servicePrice.median | number:'1.0-2'}}</strong></i>
+        </p>
+      </nz-form-item>
+    </div>
+
+    <div class="col-lg-12">
+      <button [disabled]="!testForm.valid" (click)="submit()" nz-button nzType="primary">Submit</button>
+    </div>
+  </div>
+</form>

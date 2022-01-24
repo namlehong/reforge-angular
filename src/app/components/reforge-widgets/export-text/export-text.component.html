@@ -1,0 +1,53 @@
+<div class="card">
+  <div class="card-header card-header-flex flex-column">
+    <div class="d-flex flex-wrap pt-3">
+      <div class="mr-auto">
+        <div class="text-dark font-size-18 font-weight-bold">Settings</div>
+      </div>
+      <div>
+<!--        <button-->
+<!--          nz-button-->
+<!--          nzType="primary"-->
+<!--          (click)="discordExport.emit(services)"-->
+<!--        >Export to Discord</button>-->
+      </div>
+    </div>
+    <nz-tabset class="kit-tabs kit-tabs-bold">
+      <!--      <nz-tab nzTitle="Active"></nz-tab>-->
+      <!--      <nz-tab nzTitle="Inactive"></nz-tab>-->
+    </nz-tabset>
+  </div>
+  <div class="card-body">
+    <ul nz-list>
+      <li nz-list-item>
+        Include IGN in export text
+        <ul nz-list-item-actions>
+          <nz-list-item-action>
+            <nz-switch [ngModel]="export_include_ign" (ngModelChange)="onIgnChange($event)"></nz-switch>
+          </nz-list-item-action>
+        </ul>
+      </li>
+      <li nz-list-item>
+        Export coloring version
+        <ul nz-list-item-actions>
+          <nz-list-item-action>
+            <nz-switch [ngModel]="export_coloring" (ngModelChange)="onColorChange($event)"></nz-switch>
+          </nz-list-item-action>
+        </ul>
+      </li>
+      <li nz-list-item>
+
+      </li>
+    </ul>
+
+    <form nz-form nzLayout="vertical">
+      <nz-form-item>
+        <nz-form-label>Export note</nz-form-label>
+        <nz-form-control nzErrorTip="Please write something here!">
+          <textarea [formControl]="exportNoteControl" nz-input rows="4" placeholder="write any thing"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+
+  </div>
+</div>

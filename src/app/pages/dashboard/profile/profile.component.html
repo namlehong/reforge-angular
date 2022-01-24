@@ -1,0 +1,36 @@
+<div *ngIf="hasLinked$ | async">
+  <div class="row">
+    <div class="col-xl-4 col-lg-12">
+      <div class="card" *ngIf="user">
+        <div class="card-body">
+          <app-bio [profile]="user.profile"></app-bio>
+        </div>
+      </div>
+      <div class="card text-white bg-primary">
+        <app-approve-counter [profile]="(user$ | async)?.profile"></app-approve-counter>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <app-approve-history [vouches]="vouches$ | async"></app-approve-history>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-8 col-lg-12" *ngIf="(myServices$ | async) && (hallMap$ | async)">
+      <app-list-services
+        [services]="myServices$ | async"
+        [hallMap]="hallMap$ | async"
+        (edit)="edit($event)"
+        (toggle)="toggleAvailable($event)"
+        (discordExport)="export($event)"
+      ></app-list-services>
+      <app-export-text></app-export-text>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!(hasLinked$ | async)">
+  <div class="text-center">
+    <p>You must public your characters info (then re-login)</p>
+<!--    <app-update-ssid-button></app-update-ssid-button>-->
+  </div>
+</div>

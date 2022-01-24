@@ -1,0 +1,64 @@
+<div>
+  <div *ngIf="name" nz-dropdown nzTrigger="click" class="dropdown" [nzDropdownMenu]="menu" (nzVisibleChange)="badgeCountIncrease()">
+    <nz-badge [nzCount]="badgeCount">
+      <nz-avatar nzIcon="user" [nzShape]="'square'" [nzSize]="'large'" class="avatar"></nz-avatar>
+    </nz-badge>
+  </div>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu class="user-profile-menu">
+      <li nz-menu-item>
+        <strong>{{ 'topBar.profileMenu.hello' | translate }}, {{name || 'Anonymous'}}</strong>
+<!--        <div>-->
+<!--          <strong class="mr-1">-->
+<!--            {{ 'topBar.profileMenu.billingPlan' | translate }}:-->
+<!--          </strong>-->
+<!--          Professional-->
+<!--        </div>-->
+        <div>
+          <strong>
+            {{ 'topBar.profileMenu.role' | translate }}:
+          </strong>
+          {{role || '—'}}
+        </div>
+      </li>
+      <li nz-menu-divider></li>
+      <li nz-menu-item>
+        <div>
+          <strong>{{ 'topBar.profileMenu.email' | translate }}: </strong>
+          {{email || '—'}}
+<!--          <br />-->
+<!--          <strong>{{ 'topBar.profileMenu.phone' | translate }}: </strong>-->
+<!--          {{phone || '—'}}-->
+        </div>
+      </li>
+      <li nz-menu-divider></li>
+<!--      <li nz-menu-item>-->
+<!--        <a href="javascript: void(0);">-->
+<!--          <i class="fe fe-user mr-2"></i>-->
+<!--          {{ 'topBar.profileMenu.editProfile' | translate }}-->
+<!--        </a>-->
+<!--      </li>-->
+<!--      <li nz-menu-divider></li>-->
+      <li nz-menu-item>
+        <a href="javascript: void(0);" (click)="toggleSidebar()">
+        <i class="fe fe-settings mr-2"></i>
+        {{ 'topBar.profileMenu.layout_setting' | translate }}
+        </a>
+      </li>
+      <li nz-menu-item (click)="setTheme(!isDark ? 'dark' : 'default', $event)">
+        <nz-switch style="float: right" [ngModel]="isDark"></nz-switch>
+          <i *ngIf="!isDark" class="fe fe-moon mr-2"></i>
+          <i *ngIf="isDark" class="fe fe-sun mr-2"></i>
+          {{ 'topBar.profileMenu.darkmode' | translate }}
+      </li>
+      <li nz-menu-divider></li>
+      <li nz-menu-item>
+
+        <a href="javascript: void(0);" (click)="logout()">
+          <i class="fe fe-log-out mr-2"></i>
+          {{ 'topBar.profileMenu.logout' | translate }}
+        </a>
+      </li>
+    </ul>
+  </nz-dropdown-menu>
+</div>

@@ -1,0 +1,74 @@
+<div class="mb-2 d-flex">
+  <div class="col-lg-8 pl-0 pr-0">
+    <nz-select
+      nzPlaceHolder="Please select"
+      nzShowSearch="1"
+      nzServerSearch
+      [(ngModel)]="listOfSelectedValue" (nzOnSearch)="onSearch($event)" (ngModelChange)="tagChange($event)">
+        <nz-option nzValue="" nzLabel="All"></nz-option>
+      <ng-container *ngFor="let o of hallServices$ | async">
+        <nz-option [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
+      </ng-container>
+    </nz-select>
+  </div>
+  <div class="col-lg-2 pr-2">
+    <input nz-input placeholder="76" [formControl]="itemLevelControl">
+  </div>
+  <button nz-button nzType="default" nzShape="round" (click)="refresh()"><i nz-icon nzType="redo"></i> Refresh</button>
+</div>
+<div class="mb-2">
+  <nz-table
+    #dynamicTable
+    [nzData]="itemList"
+    [nzFrontPagination]="false"
+    [nzPageIndex]="pagingIndex"
+    [nzPageSize]="pagingSize"
+    [nzTotal]="pagingTotal"
+    (nzPageIndexChange)="onPageChange($event)">
+    <thead>
+    <tr>
+      <th>Info</th>
+      <th nzColumnKey="chaos_equivalent">Price</th>
+      <th nzColumnKey="karma">Seller</th>
+      <th width="200px">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-template ngFor let-data [ngForOf]="dynamicTable.data">
+      <tr>
+        <td>
+          <div *ngIf="hallServiceMap[data.service]">{{hallServiceMap[data.service].title}}</div>
+        </td>
+        <td>
+          {{data.price}} ({{data.chaos_equivalent | number:'1.0-2'}} chaos)
+          <br/>
+          {{data.updated_at | timeago}}
+        </td>
+        <td>
+          <span *ngIf="authorized">@{{data.profile.name}}</span>
+          <a *ngIf="!authorized"
+                nz-tooltip
+                nzTooltipTitle="Please login to show seller name"
+             routerLink="/login"
+          >{{ hideString(data.profile.name) }}</a>
+          <br/>
+          <span class="mr-1 text-success"><i nz-icon nzType="like"></i> {{data.profile.positive_karma}}</span>
+          <span *ngIf="data.profile.negative_karma > 0" class="text-danger"><i nz-icon nzType="dislike"></i> {{data.profile.negative_karma}}</span>
+        </td>
+        <td>
+          <ng-container *ngIf="authorized">
+            <a class="text-info" (click)="pm(data)"><i nz-icon nzType="message"></i> PM</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a class="text-info" routerLink="/trading/profile/{{data.profile.username}}"><i nz-icon nzType="user"></i> Profile</a>
+            <br/>
+            <a class="text-info" (click)="vouch(data)"><i nz-icon nzType="like"></i> Vouch</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a class="text-danger" (click)="disapprove(data)"><i nz-icon nzType="dislike"></i> Disapprove</a>
+          </ng-container>
+          <a *ngIf="!authorized" class="text-danger" routerLink="/login">Please login before PM</a>
+        </td>
+      </tr>
+    </ng-template>
+    </tbody>
+  </nz-table>
+</div>

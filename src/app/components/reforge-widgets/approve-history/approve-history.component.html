@@ -1,0 +1,14 @@
+<ul class="list-unstyled">
+  <li class="item" *ngFor="let item of vouches">
+<!--    <div class="itemTime mr-3">{{item.updated_at | timeago:live}}</div>-->
+    <div class="itemSeparator">
+      <div class="donut mr-3" [ngClass]="item.karma > 0 ? 'success' : 'danger'"></div>
+    </div>
+    <div>
+      <div *ngIf="item.karma > 0">Approved!</div>
+      <div *ngIf="item.karma < 0">{{item.note || 'No Reason'}}</div>
+      <div>{{item.service_title}}</div>
+      <i>&mdash; by <a routerLink="/trading/profile/{{item.sender_username}}">{{item.sender_username}}</a>, {{item.updated_at | timeago:live}}</i>
+    </div>
+  </li>
+</ul>

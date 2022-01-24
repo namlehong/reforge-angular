@@ -1,0 +1,10 @@
+<ul nz-menu nzMode="inline">
+  <ng-container *ngFor="let item of hallServices$ | async as items; index as i">
+  <nz-list-item *ngIf="i == 0 || item.category != items[i-1].category">
+    {{item.categoryInfo.title}}
+  </nz-list-item>
+  <nz-list-item>
+    {{item.title}}
+  </nz-list-item>
+  </ng-container>
+</ul>

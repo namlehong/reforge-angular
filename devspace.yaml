@@ -1,0 +1,39 @@
+version: v1beta9
+images:
+  app:
+    image: namlehong/reforge-angular
+    rebuildStrategy: ignoreContextChanges
+    tags:
+      - dev-####
+
+deployments:
+- name: angular
+  helm:
+    chart:
+      name: nginx
+      repo: https://charts.bitnami.com/bitnami
+    values:
+      service:
+        type: ClusterIP
+      resources:
+        limits:
+          cpu: "100m"
+          memory: "128M"
+
+      livenessProbe:
+        enabled: false
+      readinessProbe:
+        enabled: false
+      serverBlock: |-
+        port_in_redirect off;
+        server {
+          listen 8080;
+          server_name localhost;
+          index index.html;
+          location / {
+              try_files $uri $uri/ /index.html;
+          }
+        }
+      image:
+        repository: ${runtime.images.app.image}
+        tag: ${runtime.images.app.tag}

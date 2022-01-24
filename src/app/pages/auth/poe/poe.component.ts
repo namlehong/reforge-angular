@@ -18,7 +18,7 @@ export class PoeComponent implements OnInit {
       // window.localStorage;
       store.set('app.poe.auth', this.code)
       localStorage.setItem('app.poe.auth', this.code)
-      window.close()
+      // window.close()
     })
   }
 }

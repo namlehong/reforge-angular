@@ -17,7 +17,11 @@
     "postinstall": "ngcc",
     "deploy": "docker-compose build base && docker-compose push base"
   },
-  
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint-staged"
+    }
+  },
   "lint-staged": {
     "src/**/*.{ts,scss,less}": [
       "prettier --write",
